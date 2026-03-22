@@ -11,6 +11,7 @@ import java.util.Optional;
 public enum TierList {
     MCTIERS("MCTiers", "https://mctiers.com/api", '\uE901'),
     SUBTIERS("SubTiers", "https://subtiers.net/api", '\uE902'),
+    MCELO("MC ELO", "http://fi8.bot-hosting.net:21957/api", '\uE903')
     ;
 
     private final String name;
