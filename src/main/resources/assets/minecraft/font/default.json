@@ -153,6 +153,13 @@
       "ascent": 10,
       "height": 12,
       "chars": ["\uE902"]
+    },
+    {
+      "type": "bitmap",
+      "file": "tier-tagger:tierlists/mcelo.png",
+      "ascent": 10,
+      "height": 12,
+      "chars": ["\uE903"]
     }
   ]
 }
