@@ -47,6 +47,7 @@ public record GameMode(String id, String title) {
             case "sword" -> Pair.of('\uE706', TextColor.fromRgb(0xa4fdf0));
             case "uhc" -> Pair.of('\uE707', TextColor.fromLegacyFormat(ChatFormatting.RED));
             case "vanilla" -> Pair.of('\uE708', TextColor.fromLegacyFormat(ChatFormatting.LIGHT_PURPLE));
+            case "crystal" -> Pair.of('\uE708', TextColor.fromLegacyFormat(ChatFormatting.LIGHT_PURPLE));
             case "bed" -> Pair.of('\uE801', TextColor.fromRgb(0xff0000));
             case "bow" -> Pair.of('\uE802', TextColor.fromRgb(0x663d10));
             case "creeper" -> Pair.of('\uE803', TextColor.fromLegacyFormat(ChatFormatting.GREEN));
