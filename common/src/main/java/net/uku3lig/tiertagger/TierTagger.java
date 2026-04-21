@@ -95,7 +95,12 @@ public class TierTagger {
 
     public static Optional<PlayerInfo.NamedRanking> getPlayerTier(UUID uuid) {
         GameMode mode = manager.getConfig().getGameMode();
-
+        GameMode detected = KitDetector.detectGameMode();
+        if (detected != GameMode.NONE) {
+            mode = detected;
+        }
+        
+        // replace with kit detector
         return TierCache.getPlayerRankings(uuid)
                 .map(rankings -> {
                     PlayerInfo.Ranking ranking = rankings.get(mode.id());
