@@ -9,10 +9,12 @@ public class KitDetector {
 
     private KitDetector() {}
 
-    /** Placeholder. */
-    public static void onLoadingScreen() {
+
+    public static void currentGameMode() {
         if (currentServerIp().contains("mcpvp.club")) {
-            detectGameMode();
+            return detectGameMode();
+        } else {
+            return GameMode.NONE;
         }
     }
     

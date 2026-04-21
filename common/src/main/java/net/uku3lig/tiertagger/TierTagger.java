@@ -100,13 +100,18 @@ public class TierTagger {
             mode = detected;
         }
         
-        // replace with kit detector
         return TierCache.getPlayerRankings(uuid)
                 .map(rankings -> {
                     PlayerInfo.Ranking ranking = rankings.get(mode.id());
+                    if (detected != GameMode.NONE){
+                        if (ranking == null) {
+                            return null;
+                        } else {
+                            return ranking.asNamed(mode);
+                        }
+                    }
                     Optional<PlayerInfo.NamedRanking> highest = PlayerInfo.getHighestRanking(rankings);
                     TierTaggerConfig.HighestMode highestMode = manager.getConfig().getHighestMode();
-
                     if (ranking == null) {
                         if (highestMode != TierTaggerConfig.HighestMode.NEVER && highest.isPresent()) {
                             return highest.get();
