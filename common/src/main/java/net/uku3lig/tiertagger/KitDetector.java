@@ -9,13 +9,13 @@ public class KitDetector {
 
     private KitDetector() {}
 
+    public static boolean isOnMcpvp() {
+        String ip = currentServerIp();
+        return ip != null && ip.contains("mcpvp.club");
+    }
 
-    public static void currentGameMode() {
-        if (currentServerIp().contains("mcpvp.club")) {
-            return detectGameMode();
-        } else {
-            return GameMode.NONE;
-        }
+    public static GameMode currentGameMode() {
+        return isOnMcpvp() ? detectGameMode() : GameMode.NONE;
     }
     
     public static GameMode detectGameMode() {
