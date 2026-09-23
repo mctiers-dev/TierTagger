@@ -15,10 +15,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.uku3lig.tiertagger.config.TierTaggerConfig;
+import net.uku3lig.tiertagger.lua.LuaApi;
 import net.uku3lig.tiertagger.model.GameMode;
 import net.uku3lig.tiertagger.model.PlayerInfo;
 import net.uku3lig.ukulib.config.ConfigManager;
 import net.uku3lig.ukulib.utils.Ukutils;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.JsePlatform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +41,7 @@ public class TierTagger {
     public static final String MOD_ID = "tiertagger";
     private static final String UPDATE_URL_FORMAT = "https://api.modrinth.com/v2/project/dpkYdLu5/version?game_versions=%s";
 
-    public static final Gson GSON = new GsonBuilder().create();
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @Getter
     private static final ConfigManager<TierTaggerConfig> manager = ConfigManager.createDefault(TierTaggerConfig.class, MOD_ID);
@@ -55,6 +59,8 @@ public class TierTagger {
 
     public static void onInitialize(Version currentVer) {
         currentVersion = currentVer;
+
+        LuaApi.loadScript();
 
         TierCache.init();
 

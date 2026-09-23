@@ -1,5 +1,6 @@
 package net.uku3lig.tiertagger;
 
+import net.uku3lig.tiertagger.lua.LuaApi;
 import net.uku3lig.tiertagger.model.GameMode;
 import net.uku3lig.tiertagger.model.PlayerInfo;
 
@@ -13,15 +14,15 @@ public class TierCache {
     private static final Map<UUID, Optional<Map<String, PlayerInfo.Ranking>>> TIERS = new ConcurrentHashMap<>();
 
     public static void init() {
-        try {
+        // try {
             GAMEMODES.clear();
-            GAMEMODES.addAll(GameMode.fetchGamemodes(TierTagger.getClient()).get());
-            TierTagger.getLogger().info("Found {} tierlists: {}", GAMEMODES.size(), GAMEMODES.stream().map(GameMode::id).toList());
-        } catch (ExecutionException e) {
+            GAMEMODES.addAll(LuaApi.getGameModes());
+            TierTagger.getLogger().info("Found {} gamemodes: {}", GAMEMODES.size(), GAMEMODES.stream().map(GameMode::id).toList());
+        /* } catch (ExecutionException e) {
             TierTagger.getLogger().error("Failed to load gamemodes!", e);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        }
+        } */
     }
 
     public static List<GameMode> getGamemodes() {
@@ -35,7 +36,8 @@ public class TierCache {
     public static Optional<Map<String, PlayerInfo.Ranking>> getPlayerRankings(UUID uuid) {
         return TIERS.computeIfAbsent(uuid, _ -> {
             if (uuid.version() == 4) {
-                PlayerInfo.getRankings(TierTagger.getClient(), uuid).thenAccept(info -> TIERS.put(uuid, Optional.ofNullable(info)));
+                CompletableFuture.runAsync(() -> TIERS.put(uuid, Optional.ofNullable(LuaApi.fetchPlayer(uuid).rankings())));
+                // PlayerInfo.getRankings(TierTagger.getClient(), uuid).thenAccept(info -> TIERS.put(uuid, Optional.ofNullable(info)));
             }
 
             return Optional.empty();

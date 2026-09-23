@@ -11,6 +11,9 @@ dependencies {
 
     compileOnly("net.uku3lig:ukulib-common:${BuildConfig.UKULIB_VERSION}")
 
+    compileOnly("com.github.wagyourtail.luaj:luaj-core:${BuildConfig.LUAJ_REV}")
+    compileOnly("com.github.wagyourtail.luaj:luaj-jse:${BuildConfig.LUAJ_REV}")
+
     // provided both by fabric and neoforge
     compileOnly("net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7")
     compileOnly("io.github.llamalad7:mixinextras-common:0.5.4")
